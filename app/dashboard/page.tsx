@@ -59,22 +59,24 @@ export default function DashboardPage() {
   };
 
   return (
-    <div className="relative flex min-h-screen w-full bg-slate-950 text-slate-100 font-sans antialiased overflow-x-hidden">
+    <div className="flex min-h-screen flex-col md:flex-row bg-slate-950 text-slate-100 font-sans antialiased overflow-x-hidden">
       {/* Background Glass Ambient Lights */}
       <div className="pointer-events-none fixed -top-40 -left-40 h-[500px] w-[500px] rounded-full bg-indigo-600/15 blur-[140px]" />
       <div className="pointer-events-none fixed top-1/2 -right-40 h-[500px] w-[500px] rounded-full bg-purple-600/15 blur-[140px]" />
       <div className="pointer-events-none fixed -bottom-40 left-1/3 h-[500px] w-[500px] rounded-full bg-blue-600/10 blur-[140px]" />
 
-      {/* Sidebar */}
+      {/* Sidebar (Includes mobile top header automatically) */}
       <Sidebar />
 
       {/* Main Content Area */}
-      <div className="relative z-10 flex flex-1 flex-col min-w-0 h-screen overflow-y-auto">
-        {/* Topbar */}
-        <Topbar />
+      <div className="flex flex-1 flex-col min-w-0">
+        {/* Topbar - Hidden on mobile so it matches Contacts page layout behavior */}
+        <div className="hidden md:block">
+          <Topbar />
+        </div>
 
         {/* Dashboard Main Container */}
-        <main className="flex-1 p-6 sm:p-8 md:p-10 space-y-8 max-w-7xl w-full mx-auto">
+        <main className="flex-1 p-4 sm:p-6 md:p-10 space-y-8 max-w-7xl w-full mx-auto">
           {/* Header Section */}
           <div className="flex flex-col gap-1 pt-2">
             <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">

@@ -172,18 +172,18 @@ export default function ContactsPage() {
   };
 
   return (
-    <div className="flex min-h-screen bg-[#111827]">
+    <div className="flex min-h-screen flex-col md:flex-row bg-[#111827]">
       <Sidebar />
 
-      <div className="flex flex-1 flex-col">
-        <main className="flex-1 p-8">
+      <div className="flex flex-1 flex-col min-w-0">
+        <main className="flex-1 p-4 sm:p-6 md:p-8">
           {/* Header */}
-          <div className="mb-7 flex items-center justify-between">
-            <h1 className="text-5xl font-bold text-white">Customers</h1>
+          <div className="mb-7 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+            <h1 className="text-3xl sm:text-4xl md:text-5xl font-bold text-white">Customers</h1>
 
-            <div className="flex items-center gap-4">
+            <div className="flex flex-wrap items-center gap-3 sm:gap-4">
               {/* Search */}
-              <div className="relative w-[420px]">
+              <div className="relative w-full sm:w-[300px] lg:w-[420px]">
                 <Search
                   size={20}
                   className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
@@ -193,16 +193,16 @@ export default function ContactsPage() {
                   value={search}
                   onChange={(e) => setSearch(e.target.value)}
                   placeholder="Search customers..."
-                  className="h-14 w-full rounded-xl border border-gray-700 bg-[#1B2330] pl-12 pr-4 text-white placeholder:text-gray-500 focus:border-blue-500 focus:outline-none"
+                  className="h-12 sm:h-14 w-full rounded-xl border border-gray-700 bg-[#1B2330] pl-12 pr-4 text-white placeholder:text-gray-500 focus:border-blue-500 focus:outline-none"
                 />
               </div>
 
               {/* Status */}
-              <div className="relative">
+              <div className="relative flex-1 sm:flex-none">
                 <select
                   value={statusFilter}
                   onChange={(e) => setStatusFilter(e.target.value)}
-                  className="h-14 appearance-none rounded-xl border border-gray-700 bg-[#1B2330] px-5 pr-12 text-white"
+                  className="h-12 sm:h-14 w-full sm:w-auto appearance-none rounded-xl border border-gray-700 bg-[#1B2330] px-4 sm:px-5 pr-10 text-white"
                 >
                   <option value="All">Status : All</option>
                   <option value="Active">Active</option>
@@ -212,16 +212,16 @@ export default function ContactsPage() {
 
                 <ChevronDown
                   size={18}
-                  className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-gray-400"
+                  className="pointer-events-none absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 text-gray-400"
                 />
               </div>
 
               {/* Company */}
-              <div className="relative">
+              <div className="relative flex-1 sm:flex-none">
                 <select
                   value={companyFilter}
                   onChange={(e) => setCompanyFilter(e.target.value)}
-                  className="h-14 appearance-none rounded-xl border border-gray-700 bg-[#1B2330] px-5 pr-12 text-white"
+                  className="h-12 sm:h-14 w-full sm:w-auto appearance-none rounded-xl border border-gray-700 bg-[#1B2330] px-4 sm:px-5 pr-10 text-white"
                 >
                   {companies.map((company) => (
                     <option key={company} value={company}>
@@ -232,14 +232,14 @@ export default function ContactsPage() {
 
                 <ChevronDown
                   size={18}
-                  className="pointer-events-none absolute right-4 top-1/2 -translate-y-1/2 text-gray-400"
+                  className="pointer-events-none absolute right-3 sm:right-4 top-1/2 -translate-y-1/2 text-gray-400"
                 />
               </div>
 
               {/* Advanced Filter Button */}
               <button
                 onClick={() => setOpenFilter(true)}
-                className="flex h-14 items-center rounded-xl border border-gray-700 bg-[#1B2330] px-6 font-semibold text-white hover:bg-[#2A3444]"
+                className="flex h-12 sm:h-14 flex-1 sm:flex-none items-center justify-center rounded-xl border border-gray-700 bg-[#1B2330] px-5 sm:px-6 font-semibold text-white hover:bg-[#2A3444]"
               >
                 Filters
               </button>
@@ -250,39 +250,41 @@ export default function ContactsPage() {
                   setSelectedCustomer(null);
                   setOpenModal(true);
                 }}
-                className="flex h-14 items-center rounded-xl bg-blue-600 px-7 font-semibold text-white transition hover:bg-blue-700"
+                className="flex h-12 sm:h-14 w-full sm:w-auto items-center justify-center rounded-xl bg-blue-600 px-6 sm:px-7 font-semibold text-white transition hover:bg-blue-700"
               >
-                <Plus size={20} className="mr-2" />
+                <Plus size={20} className="mr-2 shrink-0" />
                 Add Customer
               </button>
             </div>
           </div>
 
           {loading ? (
-            <div className="flex h-[500px] items-center justify-center rounded-2xl border border-gray-700 bg-[#1B2330]">
+            <div className="flex h-[400px] sm:h-[500px] items-center justify-center rounded-2xl border border-gray-700 bg-[#1B2330]">
               <p className="text-lg text-gray-400">Loading Customers...</p>
             </div>
           ) : (
             <>
               {/* Table Card */}
-              <div className="overflow-hidden rounded-2xl border border-gray-700 bg-[#1B2330] shadow-2xl">
-                <CustomerTable
-                  customers={filteredCustomers}
-                  onView={(customer) => {
-                    setSelectedCustomer(customer);
-                    setOpenDetails(true);
-                  }}
-                  onEdit={(customer) => {
-                    setSelectedCustomer(customer);
-                    setOpenModal(true);
-                  }}
-                  onDelete={handleDelete}
-                />
+              <div className="overflow-x-auto rounded-2xl border border-gray-700 bg-[#1B2330] shadow-2xl">
+                <div className="min-w-[700px]">
+                  <CustomerTable
+                    customers={filteredCustomers}
+                    onView={(customer) => {
+                      setSelectedCustomer(customer);
+                      setOpenDetails(true);
+                    }}
+                    onEdit={(customer) => {
+                      setSelectedCustomer(customer);
+                      setOpenModal(true);
+                    }}
+                    onDelete={handleDelete}
+                  />
+                </div>
               </div>
 
               {/* Pagination */}
-              <div className="mt-6 flex items-center justify-between">
-                <p className="text-sm text-gray-400">
+              <div className="mt-6 flex flex-col gap-4 sm:flex-row sm:items-center sm:justify-between">
+                <p className="text-sm text-gray-400 text-center sm:text-left">
                   Showing{" "}
                   <span className="font-semibold text-white">
                     {filteredCustomers.length === 0 ? 0 : 1}
@@ -298,30 +300,30 @@ export default function ContactsPage() {
                   entries
                 </p>
 
-                <div className="flex items-center gap-2">
-                  <button className="rounded-lg border border-gray-700 bg-[#111827] px-4 py-2 text-gray-300 hover:bg-[#2A3444]">
+                <div className="flex flex-wrap items-center justify-center gap-1.5 sm:gap-2">
+                  <button className="rounded-lg border border-gray-700 bg-[#111827] px-3 sm:px-4 py-2 text-sm text-gray-300 hover:bg-[#2A3444]">
                     Previous
                   </button>
 
-                  <button className="h-10 w-10 rounded-lg bg-blue-600 font-semibold text-white">
+                  <button className="h-9 w-9 sm:h-10 sm:w-10 rounded-lg bg-blue-600 text-sm font-semibold text-white">
                     1
                   </button>
 
-                  <button className="h-10 w-10 rounded-lg border border-gray-700 bg-[#111827] text-gray-300 hover:bg-[#2A3444]">
+                  <button className="h-9 w-9 sm:h-10 sm:w-10 rounded-lg border border-gray-700 bg-[#111827] text-sm text-gray-300 hover:bg-[#2A3444]">
                     2
                   </button>
 
-                  <button className="h-10 w-10 rounded-lg border border-gray-700 bg-[#111827] text-gray-300 hover:bg-[#2A3444]">
+                  <button className="h-9 w-9 sm:h-10 sm:w-10 rounded-lg border border-gray-700 bg-[#111827] text-sm text-gray-300 hover:bg-[#2A3444]">
                     3
                   </button>
 
-                  <span className="px-2 text-gray-500">...</span>
+                  <span className="px-1 sm:px-2 text-gray-500">...</span>
 
-                  <button className="h-10 w-10 rounded-lg border border-gray-700 bg-[#111827] text-gray-300 hover:bg-[#2A3444]">
+                  <button className="h-9 w-9 sm:h-10 sm:w-10 rounded-lg border border-gray-700 bg-[#111827] text-sm text-gray-300 hover:bg-[#2A3444]">
                     15
                   </button>
 
-                  <button className="rounded-lg border border-gray-700 bg-[#111827] px-4 py-2 text-gray-300 hover:bg-[#2A3444]">
+                  <button className="rounded-lg border border-gray-700 bg-[#111827] px-3 sm:px-4 py-2 text-sm text-gray-300 hover:bg-[#2A3444]">
                     Next
                   </button>
                 </div>

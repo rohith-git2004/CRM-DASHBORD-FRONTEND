@@ -111,15 +111,17 @@ export default function DealsPage() {
   );
 
   return (
-    <div className="flex min-h-screen bg-[#111827]">
+    <div className="flex min-h-screen flex-col md:flex-row bg-[#111827]">
 
       <Sidebar />
 
-      <div className="flex flex-1 flex-col">
+      <div className="flex flex-1 flex-col min-w-0">
 
-        <Topbar />
+        <div className="hidden md:block">
+          <Topbar />
+        </div>
 
-        <main className="p-8">
+        <main className="p-4 sm:p-6 md:p-8">
 
           <h1 className="mb-8 text-3xl font-bold text-white">
             Deals
